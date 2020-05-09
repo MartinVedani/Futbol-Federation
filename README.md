@@ -1,7 +1,8 @@
 # Futbol-Federation
 MidnHub Latam 4. Introduction to Java, Gradle and Spring Boot
 
-Spring Boot 2.2.7 (dependencies: 
+Spring Boot 2.2.7 (dependencies:
+
       * Spring Boot DevTools,
       
       * Spring Web, 
