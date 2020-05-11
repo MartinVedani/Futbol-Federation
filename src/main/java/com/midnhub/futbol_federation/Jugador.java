@@ -4,9 +4,11 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.*;
 
-//la palabra extends indica que la clase Jugador hereda los atributos y métodos de la clase Persona
-@Entity
+
+@Entity // Tells Spring to create a table named Player in the database
 public class Jugador extends Persona {
+    //la palabra extends indica que la clase Jugador hereda los atributos y métodos de la clase
+    // Persona
     private int numero;
     @ManyToOne
     @JoinColumn(name = "club_id")
@@ -21,8 +23,8 @@ public class Jugador extends Persona {
     public Jugador(){}
 
     public Jugador(String nombre, String apellido, LocalDate fecha_nacimiento, int numero, Club club, Posicion posicion) {
-        //la funcion super() hace referencia al constructor de la clase madre (Persona) y lleva como argumento los datos que deben
-        //ser llenados para cumplir con el constructor de Persona
+        //la funcion super() hace referencia al constructor de la clase madre (Persona) y lleva como
+        // argumento los datos que deben ser llenados para cumplir con el constructor de Persona
         super(nombre, apellido, fecha_nacimiento);
         this.numero = numero;
         this.club = club;

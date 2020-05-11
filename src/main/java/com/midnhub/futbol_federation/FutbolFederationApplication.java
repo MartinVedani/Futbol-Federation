@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Bean;
 import java.time.LocalDate;
 
 @SpringBootApplication
-public class FulboApplication {
+public class FutbolFederationApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FulboApplication.class, args);
+		SpringApplication.run(FutbolFederationApplication.class, args);
 	}
 
 	@Bean
