@@ -1,6 +1,12 @@
 package com.mindhub.futbol_federation;
-// Los nombre de los paquetes se estila dejarlo en minúscula así no se confunden
-// entre los objetos, lo único que tiene que estar en mayúscula en java son las clases.
+// Los nombres de los paquetes se estila dejarlo en minúscula así no se confunden
+// entre los objetos. Lo único que tiene que estar en mayúscula en java son las clases, las
+// variables en minúscula (preferiblemente cameCase pero con guión bajo también).
+// Los nombres de las propiedades en camelCase se pasan a _ en la base de datos
+// Como referencia: Vue y DOM usan camelCase, html los pasa a "-".
+// En js, java y Python como alternativa a camelCase se usa "_" xq no se puede usar "-".
+
+// En resume, camelCase "arriba" o guión "abajo". En el "medio" nunca.
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,8 +16,8 @@ import java.time.LocalDate;
 
 @MappedSuperclass
 public abstract class Persona {
-// la clase "publica" es accesible globalmente. Es "abstracta" si queremos definir los mismos
-// atributos y comportamientos que van a ser heredados por varias otras clases hijas, por
+// la clase "publica" es accesible globalmente. La hacemos "abstracta" si queremos definir los
+// mismos atributos y comportamientos que van a ser heredados por varias otras clases hijas, por
 // ejemplo "Jugador.java" (que utilizarán el método "super" para elevar estos atributos a la clase
 // madre "Persona".
 
@@ -35,7 +41,8 @@ public abstract class Persona {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
-    //Puedo tener varios constructores que den flexibilidad en la cantidad y tipo de iniciación.
+    //Puedo tener varios constructores que den flexibilidad en la cantidad de datos y tipo de
+    // iniciación (en estos ejemplos con o sin documento).
     public Persona(String nombre, String apellido, LocalDate fecha_nacimiento) {
         this.nombre = nombre;
         this.apellido = apellido;
@@ -58,7 +65,8 @@ public abstract class Persona {
         return nombre;
     }
 
-    //"set" ejecuta un cambio pero no retorna nada por lo que se debe especificar "void".
+    //"set" ejecuta una modificación pero no retorna nada por lo que se debe especificar "void".
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -97,8 +105,9 @@ public abstract class Persona {
         return this.getNombre() + " " + this.getApellido();
     }
 
-    //los métodos abstractos permiten que una clase hija pueda modificarlos
+    //los métodos abstractos son obligatorios (sin ellos no complita) permiten que una clase
+    // hija pueda modificarlos, entocnes jugadores y técnicos se pueden presentar de formas
+    // diferentes.
     public abstract String presentarse();
-
 
 }

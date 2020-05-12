@@ -14,8 +14,8 @@ public class FutbolFederationApplication {
 		SpringApplication.run(FutbolFederationApplication.class, args);
 	}
 
-	@Bean
-	public CommandLineRunner initData(ClubRepository clubRepository,JugadorRepository jugadorRepository, TecnicoRepository tecnicoRepository,PatrocinadorRepository patrocinadorRepository, ClubPatrocinadorRepository clubPatrocinadorRepository) {
+	@Bean // le dice a Spring que cree un objeto (sin tabla, para objeto con tabla se usa @Entity)
+	public CommandLineRunner initData(ClubRepository clubRepository, JugadorRepository jugadorRepository, TecnicoRepository tecnicoRepository, PatrocinadorRepository patrocinadorRepository, ClubPatrocinadorRepository clubPatrocinadorRepository) {
 		return args -> {
 			//Clubes
 			Club barcelona = new Club("FC Barcelona",Pais.ESPAÑA);
@@ -49,16 +49,47 @@ public class FutbolFederationApplication {
 			boca.getJugadores().add(salvio);
 
 
-
-
 			//Técnicos
 			Tecnico setien = new Tecnico("Quique", "Setién", LocalDate.parse("1958-09-27"),barcelona);
 			Tecnico russo = new Tecnico("Miguel Angel", "Russo", LocalDate.parse("1958-09-27"),boca);
 			Tecnico gallardo = new Tecnico("Marcelo", "Gallardo", LocalDate.parse("1958-09-27"),river);
 			Tecnico kudelka = new Tecnico("Frank Darío", "Kudelka", LocalDate.parse("1958-09-27"),newells);
 
+			// Imprimir en consola el método abstracto de Persona, modigicado por Jugador y Tecnico
+			System.out.println(messi.saludar()); //Messi saluda
+			System.out.println(messi.presentarse()); // Messi se presenta
+			System.out.println(setien.presentarse()); //Setien se presenta
 
+			/////////////////////////////////////////////////////////////////////////////////
+			//							Probamos métodos de Java Básicos				   //
+			/////////////////////////////////////////////////////////////////////////////////
+			System.out.println("-----------Probando métodos de Java Básicos --------------------");
 
+			System.out.println("-----------Jugadores del Barca --------------------");
+			barcelona.getJugadores().forEach(jugador -> System.out.println(jugador.nombreCompleto()));
+
+			// Calalunya se separa de España, Messi se vuelve a la Argentina.
+			barcelona.setPais(Pais.CATALUNYA);
+
+			System.out.println("----------------Pase --------------------");
+			//Probamos método estático "traspaso" de la clase Club
+			Club.traspaso(messi, barcelona, newells); // se hace el pase
+			System.out.println(messi.presentarse()); // Messi se presenta otra vez
+
+			System.out.println("-----------Jugadores del Barca --------------------");
+			barcelona.getJugadores().forEach(jugador -> System.out.println(jugador.nombreCompleto()));
+
+			System.out.println("-----------Jugadores del Newell's --------------------");
+			newells.getJugadores().forEach(jugador -> System.out.println(jugador.nombreCompleto()));
+
+			// vuelven las cosas a la normalidad, Messi no dice nada.
+			barcelona.setPais(Pais.ESPAÑA);
+			Club.traspaso(messi, newells, barcelona);
+
+			System.out.println("----Fin de la prueba de métodos de Java Básicos ----------");
+			/////////////////////////////////////////////////////////////////////////////////
+			//					Fin de la prueba de métodos de Java Básicos				   //
+			/////////////////////////////////////////////////////////////////////////////////
 
 			clubRepository.save(barcelona);
 			clubRepository.save(boca);

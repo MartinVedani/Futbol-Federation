@@ -4,15 +4,16 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.*;
 
-
-@Entity // Tells Spring to create a table named Player in the database
+// @Entity le dice a Spring que cree una tabla (incluyendo el objeto necesario) llamada Jugador
+// en la base de datos. La palabra extends indica que la clase Jugador hereda los atributos y
+// métodos de la clase Persona.
+@Entity
 public class Jugador extends Persona {
-    //la palabra extends indica que la clase Jugador hereda los atributos y métodos de la clase
-    // Persona
     private int numero;
     @ManyToOne
     @JoinColumn(name = "club_id")
-    private Club club;
+    private Club club; // aca le estamos pidiendo que use la clase "Club" com o tipo de dato
+                        // para la variable "club"
     @Enumerated(EnumType.STRING)
     private Posicion posicion;
 
@@ -24,7 +25,8 @@ public class Jugador extends Persona {
 
     public Jugador(String nombre, String apellido, LocalDate fecha_nacimiento, int numero, Club club, Posicion posicion) {
         //la funcion super() hace referencia al constructor de la clase madre (Persona) y lleva como
-        // argumento los datos que deben ser llenados para cumplir con el constructor de Persona
+        // argumento los datos que deben ser llenados para cumplir con al menos uno los
+        // constructores de Persona (porque creamos 2 metodos, uno sin numero de documento).
         super(nombre, apellido, fecha_nacimiento);
         this.numero = numero;
         this.club = club;
@@ -64,7 +66,8 @@ public class Jugador extends Persona {
         this.clubesAnteriores.add(club);
     }
 
-    //la anotación @Override indica que vamos a sobrescribir un método abstracto de la clase madre (polimorfismo)
+    //la anotación @Override indica que vamos a sobrescribir un método abstracto de la clase madre
+    // (polimorfismo). Es un metodo obligatorio asi que debemos hacerlo para poder compilar.
     @Override
     public String presentarse() {
         return "Hola! Mi nombre es " + this.nombreCompleto() + " y soy " + this.getPosicion() + " de " + this.getClub().getNombre();

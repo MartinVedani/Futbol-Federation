@@ -1,4 +1,4 @@
-package com.midnhub.futbol_federation;
+package com.mindhub.futbol_federation;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

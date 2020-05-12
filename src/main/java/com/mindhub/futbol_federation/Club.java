@@ -19,6 +19,8 @@ public class Club {
     private Tecnico tecnico;
     @OneToMany(mappedBy = "club", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Jugador> jugadores;
+    // "Set<Juagadores>" es un array de elementos de clase Jugadores.
+    // Set NO permite que los elementos se puedan repetir.
 
     @OneToMany(mappedBy = "club", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<ClubPatrocinador> clubPatrocinadorSet;
@@ -29,6 +31,7 @@ public class Club {
         this.nombre = nombre;
         this.pais = pais;
         this.jugadores = new HashSet<>();
+        //HashSet inicializa un nuevo array. Es el equivalente a "var this.jugadores = []" en js.
     }
 
     public String getNombre() {
@@ -71,12 +74,22 @@ public class Club {
         this.clubPatrocinadorSet = clubPatrocinadorSet;
     }
 
+    //Método estático pertenece SÓLO a la clase y NO a los objetos dentro de la clase.
+    // Por ejemplo, Barcelona (por más qe es un club) no puede acceder al traspaso.
+    // Solo club puede acceder al pase mediante el llamado Club.traspaso
     public static void traspaso(Jugador jugador, Club clubViejo, Club clubNuevo){
         jugador.setClub(clubNuevo);
         clubViejo.setJugadores(
                 clubViejo.getJugadores().stream().filter(j -> j != jugador).collect(Collectors.toSet()));
         clubNuevo.getJugadores().add(jugador);
     }
+    //stream() es una librería de funciones superiores para hacer loops con: for, filter, map, etc.
+    // "j" es cada jugador dentro del array "jugadores". Los jugadores que NO son (!=) el que se
+    //traspasa, se agrega a .collect() y luego los "stream coleccionados" (los jugadores que pasaron
+    // el filtro, pq != el jugador que traspasa) se agregan como el nuevo array de jugadores del
+    // club viejo usando Collector.toSet().
+    // Por último, al club nuevo le pido el array de jugadores actuales con .getJugadores()
+    // y  le sumo el jugador traspasado con .add() , que es el equivalente de .push() de js
 
     public Map<String,Object> clubDTO(){
         Map<String,Object> dto = new LinkedHashMap<>();

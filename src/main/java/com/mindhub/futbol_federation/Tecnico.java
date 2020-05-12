@@ -28,6 +28,7 @@ public class Tecnico extends Persona {
         this.club = club;
     }
 
+    // Técnico hace su propio override de presentarse que es diferente al del jugador
     @Override
     public String presentarse() {
         return "Hola! mi nombre es " + this.nombreCompleto() + " y soy técnico de " + this.getClub().getNombre();
