@@ -108,6 +108,7 @@ public class FutbolFederationApplication {
 			tecnicoRepository.save(gallardo);
 			tecnicoRepository.save(kudelka);
 
+			// Creamos el historial de Tevez para el @ElementCollection de la clase Jugador
 			tevez.addClubAnterior(boca);
 			tevez.addClubAnterior(corinthians);
 			tevez.addClubAnterior(westham);

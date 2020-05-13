@@ -10,9 +10,10 @@ import java.util.Map;
 @Entity
 public class Tecnico extends Persona {
     @OneToOne
-    @JoinColumn(name = "club_id")
-    private Club club;
-
+    @JoinColumn(name = "club_id") //el ID lo almacena siempre el "many" and carnaliidad 1:muchos
+    private Club club;          //por temas de arquitectura, como Jugador ya almacena el "club_id"
+                                // se lo ponemos tambiena Tecnico por mas que la cardinalidad sea
+                                // 1:1
     public Tecnico(){}
 
     public Tecnico(String nombre, String apellido, LocalDate fecha_nacimiento, Club club) {

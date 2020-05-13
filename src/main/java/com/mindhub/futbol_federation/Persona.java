@@ -14,7 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDate;
 
-@MappedSuperclass
+@MappedSuperclass // le dice a Spring q las propiedades deben mapearse en la table de las clases hijas "Jugador" y "Tecnico"
 public abstract class Persona {
 // la clase "publica" es accesible globalmente. La hacemos "abstracta" si queremos definir los
 // mismos atributos y comportamientos que van a ser heredados por varias otras clases hijas, por
@@ -22,7 +22,7 @@ public abstract class Persona {
 // madre "Persona".
 
     //Atributos o propiedades de los objetos pertencientes a la clase persona
-    @Id // Tells Spring to create an Id for each instance (row) in the table con @Gen... parameters
+    @Id // le dice a Spring que genere un Id para cada instancia de las tablas hijas de Persona (Jugador y Tecnico)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nombre; // los atributos son privados para que solo se puedan acceder a través de

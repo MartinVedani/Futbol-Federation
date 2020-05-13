@@ -13,8 +13,8 @@ public class Club {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
     private String nombre;
-    @Enumerated(EnumType.STRING)
-    private Pais pais;
+    @Enumerated(EnumType.STRING) //EnumType le dice a la base q enumere sólamente
+    private Pais pais;   // la lista de opciones "string" que contruyen la clase Pais
     @OneToOne(mappedBy = "club")
     private Tecnico tecnico;
     @OneToMany(mappedBy = "club", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -22,6 +22,19 @@ public class Club {
     // "Set<Juagadores>" es un array de elementos de clase Jugadores.
     // Set NO permite que los elementos se puedan repetir.
 
+    // Cardinalidades anteriores: 1 club -> 1 tecnico; 1 club -> muchos jugadores.
+    // mappedBy hace referencia a la propiedad "club" definida en las clases Jugador
+    // y Tenico. Al ir a estas clases, podemos ver que la propiedad "club" se mapeará a
+    // las tablas de Tecnico y Jugador mediante @JoinColumn(name = "club_id").
+    // CascadeType.ALL dice que lo que le sucede a club, también le sucede a jugadores.
+
+
+    // Cardinalidad: many:many
+    // 1:many (1 club, muchos patrocinadores acá) + 1:many (1 patrocinador, muhcos clubes en
+    // la clase Patrocinador) lo que termina creando una clase y una tabla intermedia llamada
+    // Club_Patrocinador que tendra 2 canalidades many:1 con dos @JoinColumn: "club_id" y
+    // "patrocinador_id". Spring tiene la relacion many:many pero el programador pierde el
+    // control sobre la tabla y la clase intermedia que puede ser mut útil.
     @OneToMany(mappedBy = "club", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<ClubPatrocinador> clubPatrocinadorSet;
 

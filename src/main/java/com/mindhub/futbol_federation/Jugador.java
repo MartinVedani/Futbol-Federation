@@ -10,14 +10,13 @@ import java.util.*;
 @Entity
 public class Jugador extends Persona {
     private int numero;
-    @ManyToOne
-    @JoinColumn(name = "club_id")
-    private Club club; // aca le estamos pidiendo que use la clase "Club" com o tipo de dato
-                        // para la variable "club"
+    @ManyToOne // muchos jugadores pueden tenr un mismo club.
+    @JoinColumn(name = "club_id") //el ID lo almacena siempre el "many" and carnaliidad 1:muchos
+    private Club club;
     @Enumerated(EnumType.STRING)
     private Posicion posicion;
 
-    @ElementCollection
+    @ElementCollection // crea una tabla "trayectoria" sin tener q crear la clase
     @CollectionTable(name = "trayectoria")
     private List<Club> clubesAnteriores;
 
