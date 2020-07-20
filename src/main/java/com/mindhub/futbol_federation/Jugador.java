@@ -10,8 +10,8 @@ import java.util.*;
 @Entity
 public class Jugador extends Persona {
     private int numero;
-    @ManyToOne // muchos jugadores pueden tenr un mismo club.
-    @JoinColumn(name = "club_id") //el ID lo almacena siempre el "many" and carnaliidad 1:muchos
+    @ManyToOne // muchos jugadores pueden tener un mismo club.
+    @JoinColumn(name = "club_id") // el ID lo almacena siempre el "many" and carnaliidad 1:muchos
     private Club club;
     @Enumerated(EnumType.STRING)
     private Posicion posicion;
@@ -20,12 +20,16 @@ public class Jugador extends Persona {
     @CollectionTable(name = "trayectoria")
     private List<Club> clubesAnteriores;
 
-    public Jugador(){}
+    public Jugador() {
+    }
 
-    public Jugador(String nombre, String apellido, LocalDate fecha_nacimiento, int numero, Club club, Posicion posicion) {
-        //la funcion super() hace referencia al constructor de la clase madre (Persona) y lleva como
+    public Jugador(String nombre, String apellido, LocalDate fecha_nacimiento, int numero, Club club,
+            Posicion posicion) {
+        // la funcion super() hace referencia al constructor de la clase madre (Persona)
+        // y lleva como
         // argumento los datos que deben ser llenados para cumplir con al menos uno los
-        // constructores de Persona (porque creamos 2 metodos, uno sin numero de documento).
+        // constructores de Persona (porque creamos 2 metodos, uno sin numero de
+        // documento).
         super(nombre, apellido, fecha_nacimiento);
         this.numero = numero;
         this.club = club;
@@ -61,19 +65,21 @@ public class Jugador extends Persona {
         return clubesAnteriores;
     }
 
-    public void addClubAnterior(Club club){
+    public void addClubAnterior(Club club) {
         this.clubesAnteriores.add(club);
     }
 
-    //la anotación @Override indica que vamos a sobrescribir un método abstracto de la clase madre
-    // (polimorfismo). Es un metodo obligatorio asi que debemos hacerlo para poder compilar.
+    // la anotación @Override indica que vamos a sobrescribir un método abstracto de
+    // la clase madre (polimorfismo). Es un método obligatorio asi que debemos
+    // hacerlo para poder compilar.
     @Override
     public String presentarse() {
-        return "Hola! Mi nombre es " + this.nombreCompleto() + " y soy " + this.getPosicion() + " de " + this.getClub().getNombre();
+        return "Hola! Mi nombre es " + this.nombreCompleto() + " y soy " + this.getPosicion() + " de "
+                + this.getClub().getNombre();
     }
 
-    public Map<String,Object> jugadorDTO(){
-        Map<String,Object> dto = new LinkedHashMap<>();
+    public Map<String, Object> jugadorDTO() {
+        Map<String, Object> dto = new LinkedHashMap<>();
         dto.put("nombre", this.getNombre());
         dto.put("apellido", this.getApellido());
         dto.put("fecha_nacimiento", this.getFecha_nacimiento());

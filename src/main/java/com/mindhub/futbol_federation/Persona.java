@@ -1,5 +1,6 @@
 package com.mindhub.futbol_federation;
 // Los nombres de los paquetes se estila dejarlo en minúscula así no se confunden
+
 // entre los objetos. Lo único que tiene que estar en mayúscula en java son las clases, las
 // variables en minúscula (preferiblemente cameCase pero con guión bajo también).
 // Los nombres de las propiedades en camelCase se pasan a _ en la base de datos
@@ -14,15 +15,20 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDate;
 
-@MappedSuperclass // le dice a Spring q las propiedades deben mapearse en la table de las clases hijas "Jugador" y "Tecnico"
+@MappedSuperclass // le dice a Spring q las propiedades deben mapearse en la table de las clases
+                  // hijas "Jugador" y "Técnico"
 public abstract class Persona {
-// la clase "publica" es accesible globalmente. La hacemos "abstracta" si queremos definir los
-// mismos atributos y comportamientos que van a ser heredados por varias otras clases hijas, por
-// ejemplo "Jugador.java" (que utilizarán el método "super" para elevar estos atributos a la clase
-// madre "Persona".
+    // la clase "publica" es accesible globalmente. La hacemos "abstracta" si
+    // queremos definir los
+    // mismos atributos y comportamientos que van a ser heredados por varias otras
+    // clases hijas, por
+    // ejemplo "Jugador.java" (que utilizarán el método "super" para elevar estos
+    // atributos a la clase
+    // madre "Persona".
 
-    //Atributos o propiedades de los objetos pertencientes a la clase persona
-    @Id // le dice a Spring que genere un Id para cada instancia de las tablas hijas de Persona (Jugador y Tecnico)
+    // Atributos o propiedades de los objetos pertenecientes a la clase persona
+    @Id // le dice a Spring que genere un Id para cada instancia de las tablas hijas de
+        // Persona (Jugador y Técnico)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nombre; // los atributos son privados para que solo se puedan acceder a través de
@@ -30,9 +36,11 @@ public abstract class Persona {
     private int documento;
     private LocalDate fecha_nacimiento;
 
-    //Constructor: indica con que propiedades se debe instanciar (inicializar) un objeto perteneciente
+    // Constructor: indica con que propiedades se debe instanciar (inicializar) un
+    // objeto perteneciente
     // a esta clase
-    public Persona(){}
+    public Persona() {
+    }
 
     public Persona(String nombre, String apellido, int documento, LocalDate fecha_nacimiento) {
         this.nombre = nombre;
@@ -41,7 +49,8 @@ public abstract class Persona {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
-    //Puedo tener varios constructores que den flexibilidad en la cantidad de datos y tipo de
+    // Puedo tener varios constructores que den flexibilidad en la cantidad de datos
+    // y tipo de
     // iniciación (en estos ejemplos con o sin documento).
     public Persona(String nombre, String apellido, LocalDate fecha_nacimiento) {
         this.nombre = nombre;
@@ -49,23 +58,29 @@ public abstract class Persona {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
-    // Es buena práctica que los parametros o atributos se llamen igual que las propiedades.
-    // Se diferencian porque podemos usar la palabra clave this para hacer refecencia a la clase
+    // Es buena práctica que los parámetros o atributos se llamen igual que las
+    // propiedades.
+    // Se diferencian porque podemos usar la palabra clave this para hacer
+    // referencia a la clase
     // donde nos encontremos.
-    // "this.firstName" hace referencia al atributo (variable) firstName de la clase; "firstName" hace
+    // "this.firstName" hace referencia al atributo (variable) firstName de la
+    // clase; "firstName" hace
     // referencia al parámetro.
 
-    // Se sigue con los métodos Getters & Setters que permiten obtener un atributo del objeto
+    // Se sigue con los métodos Getters & Setters que permiten obtener un atributo
+    // del objeto
     // (getter) o modificarlo (setter).
 
-    // En Java siempre hay que especificar qué es lo que "get" trae (o retorna), que en este caso será
+    // En Java siempre hay que especificar qué es lo que "get" trae (o retorna), que
+    // en este caso será
     // un dato String.
 
     public String getNombre() {
         return nombre;
     }
 
-    //"set" ejecuta una modificación pero no retorna nada por lo que se debe especificar "void".
+    // "set" ejecuta una modificación pero no retorna nada por lo que se debe
+    // especificar "void".
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -95,18 +110,20 @@ public abstract class Persona {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
-
-    //Otros métodos o comportamientos de los objetos pertencientes a la clase Persona.
-    public String saludar(){
+    // Otros métodos o comportamientos de los objetos pertenecientes a la clase
+    // Persona.
+    public String saludar() {
         return "Hola!";
     }
 
-    public String nombreCompleto(){
+    public String nombreCompleto() {
         return this.getNombre() + " " + this.getApellido();
     }
 
-    //los métodos abstractos son obligatorios (sin ellos no complita) permiten que una clase
-    // hija pueda modificarlos, entocnes jugadores y técnicos se pueden presentar de formas
+    // los métodos abstractos son obligatorios (sin ellos no compila) permiten que
+    // una clase
+    // hija pueda modificarlos, entonces jugadores y técnicos se pueden presentar de
+    // formas
     // diferentes.
     public abstract String presentarse();
 
